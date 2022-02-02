@@ -2,6 +2,7 @@ package me.grovre.easyshearing;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
@@ -21,6 +22,7 @@ public final class EasyShearing extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        this.saveDefaultConfig();
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -33,6 +35,11 @@ public final class EasyShearing extends JavaPlugin implements Listener {
 
     @EventHandler
     public void OnEntityShear(PlayerShearEntityEvent event) {
+        // Config and vars
+        FileConfiguration config = this.getConfig();
+        int blockRadius = config.getInt("blockRadius");
+        int damageToShears = config.getInt("durabilityLostPerSheep");
+        boolean shearsTakeDamage = config.getBoolean("shearsTakeDamage");
 
         // Collects animal info
         Entity originalAnimal = event.getEntity();
@@ -48,7 +55,7 @@ public final class EasyShearing extends JavaPlugin implements Listener {
         }
 
         // Collects list of entities
-        List<Entity> nearbyEntities = (List<Entity>) Objects.requireNonNull(animalLocation.getWorld()).getNearbyEntities(animalLocation, 3, 3, 3);
+        List<Entity> nearbyEntities = (List<Entity>) Objects.requireNonNull(animalLocation.getWorld()).getNearbyEntities(animalLocation, blockRadius, blockRadius, blockRadius);
 
         // Loops through animals, shearing them all if they're sheep
         for (Entity animal : nearbyEntities) {
@@ -59,7 +66,8 @@ public final class EasyShearing extends JavaPlugin implements Listener {
             if (animal == originalAnimal) continue;
             if (((Sheep) animal).isSheared()) continue;
 
-            applyDamage(usedShears, 1);
+            if(shearsTakeDamage) applyDamage(usedShears, damageToShears);
+
             // Makes the sheep naked
             ((Sheep) animal).setSheared(true);
             // Drops the correct wool, white if null for some reason
