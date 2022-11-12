@@ -1,3 +1,3 @@
 blockRadius: 3
-shearsTakeDamage: true # For every sheep sheared, if true, apply durabilityLostPerSheep to the shears.
-durabilityLostPerSheep: 2 # Minecraft default is 1 but this plugin is so good it deserves a 2/2 (which also happens to = 1 but anyways)
+durabilityLostPerSheep: 2 # Minecraft default is 1. Set to 0 to disable
+radiusFromSheep: true # If the radius is measured from the sheep or the player

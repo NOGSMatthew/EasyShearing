@@ -107,3 +107,8 @@ buildNumber.properties
 
 # Common working directory
 run/
+.idea/libraries/Maven__org_spigotmc_spigot_api_1_18_1_R0_1_SNAPSHOT.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
+.idea/sonarlint/issuestore/index.pb
+.idea/vcs.xml
