@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="mc EasyShearing:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/mc_EasyShearing_jar</output-path>
+    <root id="archive" name="mc EasyShearing.jar">
+      <element id="module-output" name="mc EasyShearing" />
+    </root>
+  </artifact>
+</component>

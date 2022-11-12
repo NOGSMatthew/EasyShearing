@@ -6,12 +6,12 @@
 
     <groupId>me.grovre</groupId>
     <artifactId>EasyShearing</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.3.1</version>
     <packaging>jar</packaging>
 
     <name>EasyShearing</name>
 
-    <description>Shears all animals of that type in a 5 block radius</description>
+    <description>Shears all animals of that type in a 5 (customizable) block radius</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
+            <version>1.19.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
