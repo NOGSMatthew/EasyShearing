@@ -32,6 +32,9 @@ public final class EasyShearing extends JavaPlugin implements Listener {
         blockRadius = config.getInt("blockRadius");
         damageToShears = config.getInt("durabilityLostPerSheep");
         radiusFromSheep = config.getBoolean("radiusFromSheep");
+        minShearDrop = config.getInt("minimumWoolDroppedFromNearbySheep");
+        maxShearDrop = config.getInt("maximumWoolDroppedFromNearbySheep");
+        finishAfterBreaking = config.getBoolean("finishAfterBreaking");
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -42,10 +45,13 @@ public final class EasyShearing extends JavaPlugin implements Listener {
         // Plugin shutdown logic
     }
 
-    // Config and vars
+    // Config vars
     private static int blockRadius;
     private static int damageToShears;
     private static boolean radiusFromSheep;
+    private static int minShearDrop;
+    private static int maxShearDrop;
+    private static boolean finishAfterBreaking;
 
     @EventHandler
     public void OnEntityShear(PlayerShearEntityEvent event) {
@@ -73,6 +79,9 @@ public final class EasyShearing extends JavaPlugin implements Listener {
             // Gatekeepers / guard clauses
             // Makes sure that this does not run on the sheep that called the event to prevent extra wool from dropping and any entity that isn't a sheep
             // Also stops non-sheep
+            if (!finishAfterBreaking
+                    && ((Damageable) Objects.requireNonNull(usedShears.getItemMeta())).getDamage() >= Material.SHEARS.getMaxDurability())
+                return;
             if (!(entity instanceof Sheep)) continue;
             Sheep sheep = (Sheep) entity; // Makes all casts to sheep afterwards redundant
             if (sheep == originalAnimal) continue;
@@ -90,7 +99,7 @@ public final class EasyShearing extends JavaPlugin implements Listener {
                 sheepColor = DyeColor.WHITE;
             Material woolType = Material.matchMaterial(sheepColor.name() + "_WOOL");
             if (woolType == null) woolType = Material.WHITE_WOOL;
-            int amountToDrop = ThreadLocalRandom.current().nextInt(1, 4); // Drops 1-3, taken from wiki
+            int amountToDrop = ThreadLocalRandom.current().nextInt(minShearDrop, maxShearDrop); // Drops 1-3, taken from wiki
             sheep.getWorld().dropItemNaturally(sheep.getLocation(), new ItemStack(woolType, amountToDrop));
         }
     }
