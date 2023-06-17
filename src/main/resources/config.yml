@@ -4,6 +4,6 @@ radiusFromSheep: true # If the radius is measured from the sheep or the player
 finishAfterBreaking: true # If shears break, this will determine whether to stop or finish shearing nearby sheep
 
 # The range that determines the possible amount of wool to drop from *nearby sheep*
-# Does not include the sheep clicked to shear
+# Does not include the sheep clicked to shear. Vanilla is 1-4
 minimumWoolDroppedFromNearbySheep: 1 # Inclusive
 maximumWoolDroppedFromNearbySheep: 4 # Exclusive
